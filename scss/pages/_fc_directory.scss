@@ -1,0 +1,60 @@
+main {
+    padding-left:35rem;
+    position:relative;
+}
+
+.sidebar {
+    position:fixed;
+    top:0;
+    left:0;
+    width:35rem;
+    height:100vh;
+    background-color:var(--green);
+    padding:5rem 2.5rem;
+    overflow:auto;
+
+    .select > p {
+        font-family:var(--regular);
+        font-weight: bold;
+        font-size: 1.4em;
+        color:var(--white);
+        text-transform: uppercase;
+        letter-spacing:0.1em;
+        padding:0.5rem 1rem;
+        background-color: var(--almost-black);
+        text-align: center;
+        border-radius: 0.3em;
+        margin-bottom:1.5rem;
+        margin-top:5rem;
+    }
+
+    li {font-size:1em;}
+
+    ul.button-group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    button.button {
+        font-family:var(--regular);
+        font-weight: bold;
+        font-size: 1em;
+        text-transform: uppercase;
+        color:var(--white);
+        letter-spacing:0.1em;
+        padding:0.1rem 0.5rem;
+        background-color: var(--dark-green);
+        border-radius: 0.3em;
+        transition: all var(--global-transition);
+        margin-bottom:1rem;
+
+        &:is(:hover, :focus) {
+            background-color: var(--orange);
+        }
+    }
+}
+
+#app {
+
+}

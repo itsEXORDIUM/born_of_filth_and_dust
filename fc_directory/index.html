@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC DIRECTORY</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../scss/common.css">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,700;1,400;1,700&family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <!-- SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script><script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+
+</head>
+<body>
+    <main>
+        <div class="sidebar">
+            <div class="select">
+                <p>Genre</p>
+                <ul class="button-group" data-filter-group="GENRE">
+                    <li><button class="button this" data-filter=".tous">Tous</button></li>
+                    <li><button class="button" data-filter=".femme">Femme</button></li>
+                    <li><button class="button" data-filter=".homme">Homme</button></li>
+                </ul>
+                
+                <p>Born In</p>
+                <ul class="button-group" data-filter-group="BORN">
+                    <li><button class="button this" data-filter=".tous">Tous</button></li>
+                    <li><button class="button" data-filter=".00">00s</button></li>
+                    <li><button class="button" data-filter=".90">90s</button></li>
+                    <li><button class="button" data-filter=".80">80s</button></li>
+                    <li><button class="button" data-filter=".70">70s & over</button></li>
+                </ul>
+                
+                <p>Ethnicity</p>
+                <ul class="button-group" data-filter-group="ETHNICITY">
+                    <li><button class="button this" data-filter=".tous">Tous</button></li>
+                    <li><button class="button" data-filter=".black">Black</button></li>
+                    <li><button class="button" data-filter=".asian">Asian</button></li>
+                    <li><button class="button" data-filter=".white">White</button></li>
+                    <li><button class="button" data-filter=".latin">Latin/Hispanic</button></li>
+                    <li><button class="button" data-filter=".arab">Arab</button></li>
+                    <li><button class="button" data-filter=".egypt">Egyptian</button></li>
+                    <li><button class="button" data-filter=".native">Native American</button></li>
+                </ul>
+                
+                <p>Hair Color</p>
+                <ul class="button-group" data-filter-group="HAIR">
+                    <li><button class="button this" data-filter=".tous">Tous</button></li>
+                    <li><button class="button" data-filter=".blondeh">Blonde</button></li>
+                    <li><button class="button" data-filter=".blackh">Black</button></li>
+                    <li><button class="button" data-filter=".brownh">Brown</button></li>
+                    <li><button class="button" data-filter=".blueh">Blue</button></li>
+                    <li><button class="button" data-filter=".greenh">Green</button></li>
+                    <li><button class="button" data-filter=".whiteh">White</button></li>
+                    <li><button class="button" data-filter=".redh">Red</button></li>
+                    <li><button class="button" data-filter=".bald">Bald</button></li>
+                </ul>
+                
+                <p>Eye Color</p>
+                <ul class="button-group" data-filter-group="EYE">
+                    <li><button class="button this" data-filter=".tous">Tous</button></li>
+                    <li><button class="button" data-filter=".bluee">Blue</button></li>
+                    <li><button class="button" data-filter=".browne">Brown</button></li>
+                    <li><button class="button" data-filter=".greene">Green</button></li>
+                    <li><button class="button" data-filter=".hazele">Hazel</button></li>
+                    <li><button class="button" data-filter=".graye">Gray</button></li>
+                    <li><button class="button" data-filter=".blacke">Black</button></li>
+                </ul>
+                
+                <p>Other</p>
+                <ul class="button-group" data-filter-group="OTHER">
+                    <li><button class="button this" data-filter=".tous">Tous</button></li>
+                    <li><button class="button" data-filter=".tattoos">Tattoos</button></li>
+                    <li><button class="button" data-filter=".freckles">Freckles</button></li>
+                    <li><button class="button" data-filter=".piercings">Piercings</button></li>
+                </ul>
+                
+                <p>Job</p>
+                <ul class="button-group" data-filter-group="JOB">
+                    <li><button class="button this" data-filter=".tous">Tous</button></li>
+                    <li><button class="button" data-filter=".acting">Acting</button></li>
+                    <li><button class="button" data-filter=".music">Music</button></li>
+                    <li><button class="button" data-filter=".modeling">Modeling</button></li>
+                    <li><button class="button" data-filter=".yt">Youtube</button></li>
+                    <li><button class="button" data-filter=".socialm">Social Media</button></li>
+                </ul>
+                
+                <p>Favorites</p>
+                <ul class="button-group gender" data-filter-group="FAVORITES">
+                    <li><button class="button this" data-filter=".tous">Tous</button></li>
+                    <li><button class="button" data-filter=".faves">My faves</button></li>
+                    <li><button class="button" data-filter=".under">Underused</button></li>
+                </ul>
+            </div>
+        </div>
+        
+        <section id="app" class="persos">
+        
+            <div v-for="fc in fcs" :key="fc.name" :class="`contain_perso tous ${fc.faves} ${fc.gender} ${fc.year} ${fc.eth} ${fc.hair} ${fc.eyes} ${fc.tattoos} ${fc.occupation}`">
+                <a :href="`https://lescreationsdexordium.tumblr.com/tagged/${fc.name}`" :title="fc.name" class="name">
+                    {{fc.name}}
+                </a>
+                <ul class="mini_nav">
+                    <li v-if="fc.avatar"><a :href="`https://lescreationsdexordium.tumblr.com/tagged/${fc.name} avatar`" title="Avatars">Avatars</a></li>
+                    <li v-if="fc.crackships"><a :href="`https://lescreationsdexordium.tumblr.com/tagged/${fc.name} crackship`" title="Crackships">Crackships</a></li>
+                    <li v-if="fc.gifs"><a :href="`https://lescreationsdexordium.tumblr.com/tagged/${fc.name} gifs`" title="Gifs">Gifs</a></li>
+                </ul>
+                <img :src="fc.img" alt=""/>
+            </div>
+            
+        </section>
+    </main>
+
+    <script>
+        var app = new Vue({
+          el: '#app',
+          data: {
+            fcs: []
+          },
+          mounted() {
+            axios.get('https://raw.githubusercontent.com/itsEXORDIUM/my-json/main/exofinds_fcs.json')
+            .then(response => {
+                this.fcs = response.data.fcs;
+            })
+          }
+        })
+    </script>
+    
+    <script type="text/javascript">
+ 
+        // external js: isotope.pkgd.js
+         
+        // init Isotope
+        var $grid = $('.persos').isotope({
+          itemSelector: '.contain_perso'
+        });
+         
+        // store filter for each group
+        var filters = {};
+         
+        $('.select').on( 'click', '.button', function() {
+            var $this = $(this);
+            
+          // get group key
+          var $buttonGroup = $this.parents('.button-group');
+          var filterGroup = $buttonGroup.attr('data-filter-group');
+          // set filter for group
+          filters[ filterGroup ] = $this.attr('data-filter');
+          // combine filters
+          var filterValue = concatValues( filters );
+          // set filter for Isotope
+          $grid.isotope({ filter: filterValue });
+        });
+         
+        // change is-checked class on buttons
+        $('.button-group').each( function( i, buttonGroup ) {
+          var $buttonGroup = $( buttonGroup );
+          $buttonGroup.on( 'click', 'button', function() {
+            $buttonGroup.find('.this').removeClass('this');
+            $( this ).addClass('this');
+          });
+        });
+         
+        // flatten object by concatting values
+        function concatValues( obj ) {
+          var value = '';
+          for ( var prop in obj ) {
+            value += obj[ prop ];
+          }
+          return value;
+        }
+         
+    </script>
+</body>
+</html>
