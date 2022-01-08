@@ -1,6 +1,7 @@
 main {
     padding-left:35rem;
     position:relative;
+    min-height:100vh;
 }
 
 .sidebar {
@@ -16,7 +17,7 @@ main {
     .select > p {
         font-family:var(--regular);
         font-weight: bold;
-        font-size: 1.4em;
+        font-size: 1.2em;
         color:var(--white);
         text-transform: uppercase;
         letter-spacing:0.1em;
@@ -25,7 +26,11 @@ main {
         text-align: center;
         border-radius: 0.3em;
         margin-bottom:1.5rem;
-        margin-top:5rem;
+        margin-top:3.5rem;
+
+        &:first-child {
+            margin-top:0;
+        }
     }
 
     li {font-size:1em;}
@@ -34,12 +39,13 @@ main {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
+        margin:0 -5px;
     }
 
     button.button {
         font-family:var(--regular);
         font-weight: bold;
-        font-size: 1em;
+        font-size: 1.1rem;
         text-transform: uppercase;
         color:var(--white);
         letter-spacing:0.1em;
@@ -47,14 +53,154 @@ main {
         background-color: var(--dark-green);
         border-radius: 0.3em;
         transition: all var(--global-transition);
-        margin-bottom:1rem;
+        margin:0 5px 1rem 5px;
 
-        &:is(:hover, :focus) {
+        &:is(:hover, :focus), &.this {
             background-color: var(--orange);
         }
     }
 }
 
-#app {
+.persos {
+    width:100%;
+    height:100% !important;
+    padding:5rem;
+}
 
+.contain_perso {
+    background-color: var(--black);
+    padding:2rem;
+    width:24rem;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    position:relative;
+    display: inline-flex;
+    flex-direction: column;
+    margin: 0 1rem 2rem 1rem;
+
+    &:hover, &:focus {
+        .img {
+            img {
+                transform:scale(1.1);
+            }
+
+            &::after {
+                opacity:1;
+            }
+        }
+    }
+
+    a.name {
+        display: block;
+        font-family:Karla;
+        font-size:1.6rem;
+        line-height:1.2;
+        color:var(--orange);
+        text-transform: uppercase;
+        font-weight:bold;
+        margin-top:1rem;
+        text-align: left;
+        white-space: nowrap;
+
+        &::before {
+            content:'';
+            position:absolute;
+            display: block;
+            width:100%;
+            height:100%;
+            top:0;
+            left:0;
+            z-index:1;
+        }
+
+        .pseudo {
+            color:var(--beige);
+            font-size:1rem;
+            display: block;
+        }
+
+        .show_on_hover {
+            position:absolute;
+            background-color:var(--white);
+            font-size:0.9rem;
+            color:var(--almost-black);
+            top:0;
+            left:50%;
+            transform:translate(-50%, 0);
+            z-index:99;
+            padding:0.2rem 0.5rem;
+            line-height:1;
+            display: block;
+            opacity:0;
+            transition:all var(--global-transition);
+        }
+
+        &:hover {
+            .show_on_hover {
+                opacity:1;
+                transform:translate(-50%, -100%);
+            }
+        }
+    }
+
+    .img {
+        width:20rem;
+        height:20rem;
+        background-color:#000000;
+        overflow:hidden;
+        order:-1;
+        z-index:0;
+        transition: all var(--global-transition);
+        position: relative;
+
+        &::after {
+            content:'';
+            display: block;
+            position: absolute;
+            width:100%;
+            height:100%;
+            top:0;
+            left:0;
+            background-color: var(--orange);
+            mix-blend-mode:multiply;
+            z-index:1;
+            opacity:0;
+            transition: all var(--global-transition);
+        }
+        
+        img {
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            filter:grayscale(100%);
+            opacity:75%;
+            transition: all var(--global-transition);
+            z-index:-1;
+        }
+    }
+
+    ul {
+        margin:1rem 0 0 0;
+        z-index:0;
+        background-color: var(--black);
+        text-align: left;
+        border:1px solid var(--almost-black);
+
+        li {
+            text-transform: lowercase;
+            font-size:1.2rem;
+            padding:5px;
+
+            span {
+                display: block;
+                background-color: var(--almost-black);
+                text-transform: uppercase;
+                margin:-5px -5px 3px -5px;
+                padding:0 5px;
+                font-size:1rem;
+                line-height:2;
+                letter-spacing:0.1em;
+            }
+        }
+    }
 }

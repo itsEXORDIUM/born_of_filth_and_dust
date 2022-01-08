@@ -14,106 +14,97 @@
     <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,700;1,400;1,700&family=Karla:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
     <!-- SCRIPTS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script><script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
 </head>
 <body>
-    <main>
+    <main id="app">
         <div class="sidebar">
             <div class="select">
-                <p>Genre</p>
-                <ul class="button-group" data-filter-group="GENRE">
+                <p>Gender</p>
+                <ul class="button-group" data-filter-group="GENDER">
                     <li><button class="button this" data-filter=".tous">Tous</button></li>
-                    <li><button class="button" data-filter=".femme">Femme</button></li>
-                    <li><button class="button" data-filter=".homme">Homme</button></li>
+                    <li v-for="gender in genders" :key="gender"><button class="button" :data-filter="`.${gender.replace(' ', '_')}`">{{gender}}</button></li>
                 </ul>
                 
                 <p>Born In</p>
                 <ul class="button-group" data-filter-group="BORN">
                     <li><button class="button this" data-filter=".tous">Tous</button></li>
-                    <li><button class="button" data-filter=".00">00s</button></li>
-                    <li><button class="button" data-filter=".90">90s</button></li>
-                    <li><button class="button" data-filter=".80">80s</button></li>
-                    <li><button class="button" data-filter=".70">70s & over</button></li>
+                    <li v-for="year in years" :key="year"><button class="button" :data-filter="`.${year}`">{{year}}s</button></li>
                 </ul>
                 
                 <p>Ethnicity</p>
                 <ul class="button-group" data-filter-group="ETHNICITY">
                     <li><button class="button this" data-filter=".tous">Tous</button></li>
-                    <li><button class="button" data-filter=".black">Black</button></li>
-                    <li><button class="button" data-filter=".asian">Asian</button></li>
-                    <li><button class="button" data-filter=".white">White</button></li>
-                    <li><button class="button" data-filter=".latin">Latin/Hispanic</button></li>
-                    <li><button class="button" data-filter=".arab">Arab</button></li>
-                    <li><button class="button" data-filter=".egypt">Egyptian</button></li>
-                    <li><button class="button" data-filter=".native">Native American</button></li>
+                    <li v-for="eth in eths" :key="eth"><button class="button" :data-filter="`.${eth}`">{{eth}}</button></li>
                 </ul>
                 
                 <p>Hair Color</p>
                 <ul class="button-group" data-filter-group="HAIR">
                     <li><button class="button this" data-filter=".tous">Tous</button></li>
-                    <li><button class="button" data-filter=".blondeh">Blonde</button></li>
-                    <li><button class="button" data-filter=".blackh">Black</button></li>
-                    <li><button class="button" data-filter=".brownh">Brown</button></li>
-                    <li><button class="button" data-filter=".blueh">Blue</button></li>
-                    <li><button class="button" data-filter=".greenh">Green</button></li>
-                    <li><button class="button" data-filter=".whiteh">White</button></li>
-                    <li><button class="button" data-filter=".redh">Red</button></li>
-                    <li><button class="button" data-filter=".bald">Bald</button></li>
+                    <li v-for="hair in dhair" :key="hair"><button class="button" :data-filter="`.${hair}`">{{hair.slice(0, -1)}}</button></li>
                 </ul>
                 
                 <p>Eye Color</p>
                 <ul class="button-group" data-filter-group="EYE">
                     <li><button class="button this" data-filter=".tous">Tous</button></li>
-                    <li><button class="button" data-filter=".bluee">Blue</button></li>
-                    <li><button class="button" data-filter=".browne">Brown</button></li>
-                    <li><button class="button" data-filter=".greene">Green</button></li>
-                    <li><button class="button" data-filter=".hazele">Hazel</button></li>
-                    <li><button class="button" data-filter=".graye">Gray</button></li>
-                    <li><button class="button" data-filter=".blacke">Black</button></li>
+                    <li v-for="eye in deyes" :key="eye"><button class="button" :data-filter="`.${eye}`">{{eye.slice(0, -1)}}</button></li>
                 </ul>
                 
                 <p>Other</p>
                 <ul class="button-group" data-filter-group="OTHER">
                     <li><button class="button this" data-filter=".tous">Tous</button></li>
-                    <li><button class="button" data-filter=".tattoos">Tattoos</button></li>
-                    <li><button class="button" data-filter=".freckles">Freckles</button></li>
-                    <li><button class="button" data-filter=".piercings">Piercings</button></li>
+                    <li v-for="item in other" :key="item"><button class="button" :data-filter="`.${item}`">{{item}}</button></li>
                 </ul>
                 
                 <p>Job</p>
                 <ul class="button-group" data-filter-group="JOB">
                     <li><button class="button this" data-filter=".tous">Tous</button></li>
-                    <li><button class="button" data-filter=".acting">Acting</button></li>
-                    <li><button class="button" data-filter=".music">Music</button></li>
-                    <li><button class="button" data-filter=".modeling">Modeling</button></li>
-                    <li><button class="button" data-filter=".yt">Youtube</button></li>
-                    <li><button class="button" data-filter=".socialm">Social Media</button></li>
-                </ul>
-                
-                <p>Favorites</p>
-                <ul class="button-group gender" data-filter-group="FAVORITES">
-                    <li><button class="button this" data-filter=".tous">Tous</button></li>
-                    <li><button class="button" data-filter=".faves">My faves</button></li>
-                    <li><button class="button" data-filter=".under">Underused</button></li>
+                    <li v-for="job in occupation" :key="job"><button class="button" :data-filter="`.${job}`">{{job.replace('_', ' ')}}</button></li>
                 </ul>
             </div>
         </div>
         
-        <section id="app" class="persos">
+        <section class="persos">
         
-            <div v-for="fc in fcs" :key="fc.name" :class="`contain_perso tous ${fc.faves} ${fc.gender} ${fc.year} ${fc.eth} ${fc.hair} ${fc.eyes} ${fc.tattoos} ${fc.occupation}`">
-                <a :href="`https://lescreationsdexordium.tumblr.com/tagged/${fc.name}`" :title="fc.name" class="name">
+            <div v-for="fc in fcs" :key="fc.name" :class="`contain_perso tous ${fc.gender.replace(' ', '_')} ${fc.dyear} ${fc.deth} ${fc.dhair} ${fc.deyes} ${fc.dtattoos} ${fc.doccupation}`">
+                <a :href="`https://exofinds.tumblr.com/tagged/${fc.name}`" class="name">
+                    <span class="show_on_hover">
+                        See the ressources for {{fc.name}}
+                    </span>
                     {{fc.name}}
+                    <span class="pseudo" v-if="fc.pseudo !== ''">
+                        alias {{fc.pseudo}}
+                    </span>
                 </a>
-                <ul class="mini_nav">
-                    <li v-if="fc.avatar"><a :href="`https://lescreationsdexordium.tumblr.com/tagged/${fc.name} avatar`" title="Avatars">Avatars</a></li>
-                    <li v-if="fc.crackships"><a :href="`https://lescreationsdexordium.tumblr.com/tagged/${fc.name} crackship`" title="Crackships">Crackships</a></li>
-                    <li v-if="fc.gifs"><a :href="`https://lescreationsdexordium.tumblr.com/tagged/${fc.name} gifs`" title="Gifs">Gifs</a></li>
+                <div class="img">
+                    <img :src="fc.img" alt=""/>
+                </div>
+                <ul>
+                    <li>
+                        <span>Gender</span>
+                        {{fc.gender}}
+                    </li>
+                    <li>
+                        <span>Birthday</span>
+                        {{fc.birth}}
+                    </li>
+                    <li>
+                        <span>Nationality</span>
+                        {{fc.nationality}}
+                    </li>
+                    <li>
+                        <span>Ethnicity</span>
+                        {{fc.eth}}
+                    </li>
+                    <li>
+                        <span>Occupation</span>
+                        {{fc.occupation}}
+                    </li>
                 </ul>
-                <img :src="fc.img" alt=""/>
             </div>
             
         </section>
@@ -123,61 +114,133 @@
         var app = new Vue({
           el: '#app',
           data: {
-            fcs: []
+            fcs: [],
+            isotope: null,
+            genders: [],
+            years: [],
+            eths: [],
+            nationality: [],
+            dhair: [],
+            deyes: [],
+            other: [],
+            occupation: []
           },
           mounted() {
             axios.get('https://raw.githubusercontent.com/itsEXORDIUM/my-json/main/exofinds_fcs.json')
             .then(response => {
                 this.fcs = response.data.fcs;
+                $this = this;
+                this.fcs.forEach(function(fc) {
+                    // genders
+                    $this.genders.push(fc.gender);
+
+                    // years
+                    if(fc.dyear !== '') {
+                        $this.years.push(fc.dyear);
+                    }
+
+                    // ethnicities
+                    let eths = fc.deth.replace('-', ' ');
+                    eths = fc.deth.split(' ');
+                    eths.forEach(function(eth) {
+                        $this.eths.push(eth);
+                    })
+
+                    // nationality
+                    let nationalities = fc.nationality.replace('-', ' ');
+                    nationalities = fc.nationality.replace('/', ' ');
+                    nationalities = fc.nationality.split(' ');
+                    nationalities.forEach(function(nationality) {
+                        $this.nationality.push(nationality);
+                    })
+
+                    // hair
+                    let hairs = fc.dhair.split(' ');
+                    hairs.forEach(function(hair) {
+                        $this.dhair.push(hair);
+                    })
+
+                    // eyes
+                    let eyes = fc.deyes.split(' ');
+                    eyes.forEach(function(eye) {
+                        $this.deyes.push(eye);
+                    })
+
+                    // other
+                    if(fc.tattoos !== '') {
+                        let others = fc.tattoos.split(' ');
+                        others.forEach(function(other) {
+                            $this.other.push(other);
+                        })
+                    }
+
+                    // job
+                    let jobs = fc.doccupation.split(' ');
+                    jobs.forEach(function(occupation) {
+                        $this.occupation.push(occupation);
+                    })
+                })
+                
+                this.genders = [...new Set(this.genders)];
+                this.years = [...new Set(this.years)];
+                this.eths = [...new Set(this.eths)];
+                this.nationality = [...new Set(this.nationality)];
+                this.dhair = [...new Set(this.dhair)];
+                this.deyes = [...new Set(this.deyes)];
+                this.other = [...new Set(this.other)];
+                this.occupation = [...new Set(this.occupation)];
             })
-          }
-        })
-    </script>
-    
-    <script type="text/javascript">
- 
-        // external js: isotope.pkgd.js
-         
-        // init Isotope
-        var $grid = $('.persos').isotope({
-          itemSelector: '.contain_perso'
-        });
-         
-        // store filter for each group
-        var filters = {};
-         
-        $('.select').on( 'click', '.button', function() {
-            var $this = $(this);
+
+            // store filter for each group
+            var filters = {};
             
-          // get group key
-          var $buttonGroup = $this.parents('.button-group');
-          var filterGroup = $buttonGroup.attr('data-filter-group');
-          // set filter for group
-          filters[ filterGroup ] = $this.attr('data-filter');
-          // combine filters
-          var filterValue = concatValues( filters );
-          // set filter for Isotope
-          $grid.isotope({ filter: filterValue });
-        });
-         
-        // change is-checked class on buttons
-        $('.button-group').each( function( i, buttonGroup ) {
-          var $buttonGroup = $( buttonGroup );
-          $buttonGroup.on( 'click', 'button', function() {
-            $buttonGroup.find('.this').removeClass('this');
-            $( this ).addClass('this');
-          });
-        });
-         
-        // flatten object by concatting values
-        function concatValues( obj ) {
-          var value = '';
-          for ( var prop in obj ) {
-            value += obj[ prop ];
-          }
-          return value;
+            $('.select').on( 'click', '.button', function() {
+                var $this = $(this);
+                
+            // get group key
+            var $buttonGroup = $this.parents('.button-group');
+            var filterGroup = $buttonGroup.attr('data-filter-group');
+            // set filter for group
+            filters[ filterGroup ] = $this.attr('data-filter');
+            // combine filters
+            var filterValue = concatValues( filters );
+            // set filter for Isotope
+            $('.persos').isotope({ filter: filterValue });
+            });
+            
+            // change is-checked class on buttons
+            $('.button-group').each( function( i, buttonGroup ) {
+            var $buttonGroup = $( buttonGroup );
+            $buttonGroup.on( 'click', 'button', function() {
+                $buttonGroup.find('.this').removeClass('this');
+                $( this ).addClass('this');
+            });
+            });
+            
+            // flatten object by concatting values
+            function concatValues( obj ) {
+            var value = '';
+            for ( var prop in obj ) {
+                value += obj[ prop ];
+            }
+            return value;
+            }
+        },
+        created() {
+            this.reLayout();
+        },
+        methods: {
+            reLayout() {
+               setTimeout(() => {
+                    let elem = document.querySelector('.persos');
+                    this.isotope = new Isotope(elem, {
+                        itemSelector: '.contain_perso',
+                        layoutMode: 'fitRows'
+                    });
+               }, 1);
+            }
         }
-         
+        })
     </script>
 </body>
 </html>
