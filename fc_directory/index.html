@@ -23,6 +23,7 @@
 <body>
     <main id="app">
         <div class="sidebar">
+            <input class="searchfc" type="text" v-model="searchQuery" placeholder="Search by name or pseudonyme" />
             <div class="select">
                 <p>Gender</p>
                 <ul class="button-group" data-filter-group="GENDER">
@@ -70,7 +71,7 @@
         
         <section class="persos">
         
-            <div v-for="fc in fcs" :key="fc.name" :class="`contain_perso tous ${fc.gender.replace(' ', '_')} ${fc.dyear} ${fc.deth} ${fc.dhair} ${fc.deyes} ${fc.dtattoos} ${fc.doccupation}`">
+            <div v-for="fc in resultQuery" :key="fc.name" :class="`contain_perso tous ${fc.gender.replace(' ', '_')} ${fc.dyear} ${fc.deth} ${fc.dhair} ${fc.deyes} ${fc.dtattoos} ${fc.doccupation}`">
                 <a :href="`https://exofinds.tumblr.com/tagged/${fc.name}`" class="name">
                     <span class="show_on_hover">
                         See the ressources for {{fc.name}}
@@ -114,6 +115,7 @@
         var app = new Vue({
           el: '#app',
           data: {
+            searchQuery: null,
             fcs: [],
             isotope: null,
             genders: [],
@@ -228,6 +230,17 @@
         },
         created() {
             this.reLayout();
+        },
+        computed: {
+            resultQuery(){
+                if(this.searchQuery){
+                    return this.fcs.filter((fc)=>{
+                    return this.searchQuery.toLowerCase().split(' ').every(v => fc.name.toLowerCase().includes(v) || fc.pseudo.toLowerCase().includes(v))
+                })
+                }else{
+                    return this.fcs;
+                }
+            }
         },
         methods: {
             reLayout() {

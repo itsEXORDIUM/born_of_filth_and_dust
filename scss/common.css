@@ -397,6 +397,18 @@ main {
   overflow: auto;
 }
 
+.sidebar .searchfc {
+  width: 100%;
+  background-color: var(--dark-green);
+  border: 0;
+  outline: none !important;
+  color: var(--white);
+  border-radius: 0.3em;
+  font-size: 1.2em;
+  padding: 0.8rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
 .sidebar .select > p {
   font-family: var(--regular);
   font-weight: bold;
